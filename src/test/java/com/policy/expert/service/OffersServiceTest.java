@@ -1,6 +1,9 @@
 package com.policy.expert.service;
 
 import com.policy.expert.model.Offer;
+import com.policy.expert.model.impl.OfferImpl;
+import com.policy.expert.service.impl.OfferServiceImpl;
+import com.policy.expert.types.OfferType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class OffersServiceTest {
 
-    private OffersService offersService;
+    private OffersService offersService = new OfferServiceImpl();
 
 
     @BeforeEach
@@ -21,8 +24,8 @@ public class OffersServiceTest {
 
     @Test
     public void validateOffersArePersistedInRepository() {
-        final Offer offerBeans = null;
-        final Offer offerCoke = null;
+        final Offer offerBeans = new OfferImpl("Beans", OfferType.UNITS, 3, 2d);
+        final Offer offerCoke = new OfferImpl("Coke", OfferType.UNITS, 10, 5d);
 
         offersService.addOffer(offerBeans);
         offersService.addOffer(offerCoke);
@@ -37,8 +40,8 @@ public class OffersServiceTest {
     @Test
     public void validateOffersAreRemovedFromRepository()
     {
-        final Offer offerBeans = null;
-        final Offer offerCoke = null;
+        final Offer offerBeans = new OfferImpl("Beans", OfferType.UNITS, 3, 2d);
+        final Offer offerCoke = new OfferImpl("Coke", OfferType.UNITS, 10, 5d);
 
         offersService.addOffer(offerBeans);
         offersService.addOffer(offerCoke);
