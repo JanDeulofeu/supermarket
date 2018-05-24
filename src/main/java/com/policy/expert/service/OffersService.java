@@ -11,4 +11,6 @@ public interface OffersService {
     void removeOffer(Offer offer);
 
     List<Offer> listOffers();
+
+    void clearOffers();
 }

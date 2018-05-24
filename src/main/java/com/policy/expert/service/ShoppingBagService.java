@@ -13,6 +13,8 @@ public interface ShoppingBagService {
 
     List<Article> listArticlesOnShoppingBag();
 
+    void clearBag();
+
     Double calculateTotalShopping();
     
     List<Offer> calculateOffers();
