@@ -17,5 +17,5 @@ public interface ShoppingBagService {
     
     List<Offer> calculateOffers();
 
-    Double calculateFianlBill();
+    Double calculateFinalBill();
 }
