@@ -12,7 +12,9 @@ public interface Offer {
 
     void setOfferType(OfferType offerType);
 
-    Integer getOfferValueAforB();
+    Integer getOfferValueA();
+
+    Double getOfferValueB();
 
     void setOfferValueAforB(Integer a, Double b);
 }

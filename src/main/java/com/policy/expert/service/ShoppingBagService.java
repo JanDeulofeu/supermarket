@@ -16,6 +16,7 @@ public interface ShoppingBagService {
     void clearBag();
 
     Double calculateSubTotal();
+
     Double calculateDiscount();
 
     List<Offer> calculateOffers();
