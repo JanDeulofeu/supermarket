@@ -9,17 +9,16 @@ import java.util.List;
 
 public class OfferServiceImpl implements OffersService {
 
-
     private Repository<Offer> repository = new OffersRepository();
 
     @Override
     public void addOffer(final Offer offer) {
-        repository.addValue(offer.getArticleOfferedName(), offer);
+        repository.addValue(offer);
     }
 
     @Override
     public void removeOffer(final Offer offer) {
-        repository.remove(offer.getArticleOfferedName());
+        repository.remove(offer);
     }
 
     @Override

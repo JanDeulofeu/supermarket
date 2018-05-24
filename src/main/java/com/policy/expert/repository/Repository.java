@@ -4,11 +4,9 @@ import java.util.List;
 
 public interface Repository<T> {
 
-    T getValueByKey(String key);
+    void addValue(T value);
 
-    void addValue(String key, T value);
-
-    void remove(String key);
+    void remove(T value);
 
     List<T> list();
 

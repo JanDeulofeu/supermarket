@@ -1,41 +1,30 @@
 package com.policy.expert.repository.impl;
 
-import com.policy.expert.model.Article;
 import com.policy.expert.model.Offer;
-import com.policy.expert.model.impl.OfferImpl;
 import com.policy.expert.repository.Repository;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class OffersRepository implements Repository<Offer> {
 
-    private final Map<String, Offer> repository = new HashMap<>();
+    private final List<Offer> repository = new ArrayList<>();
+
 
     @Override
-    public Offer getValueByKey(final String key) {
-
-        return repository.containsKey(key) ? repository.get(key) : new OfferImpl();
-    }
-
-    @Override
-    public void addValue(final String key, final Offer value) {
-        repository.putIfAbsent(key, value);
+    public void addValue(final Offer value) {
+        repository.add(value);
     }
 
 
     @Override
-    public void remove(final String key) {
-        repository.remove(key);
+    public void remove(final Offer value) {
+        repository.remove(value);
     }
 
     @Override
     public List<Offer> list() {
-        return repository.entrySet().stream()
-                .map(k -> k.getValue())
-                .collect(Collectors.toList());
+        return new ArrayList<>(repository);
     }
 
     @Override

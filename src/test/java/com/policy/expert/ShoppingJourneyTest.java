@@ -4,7 +4,10 @@ import com.policy.expert.model.Article;
 import com.policy.expert.model.Offer;
 import com.policy.expert.model.impl.ArticleImpl;
 import com.policy.expert.model.impl.OfferImpl;
+import com.policy.expert.service.OffersService;
 import com.policy.expert.service.ShoppingBagService;
+import com.policy.expert.service.impl.OfferServiceImpl;
+import com.policy.expert.service.impl.ShoppingBagServiceImpl;
 import com.policy.expert.types.ItemType;
 import com.policy.expert.types.OfferType;
 import org.junit.jupiter.api.Test;
@@ -16,9 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ShoppingJourneyTest {
 
-
-    private ShoppingBagService shoppingBagService;
-
+    private ShoppingBagService shoppingBagService = new ShoppingBagServiceImpl();
 
     @Test
     public void validateShoppingBasketReceipt() {
@@ -32,6 +33,9 @@ public class ShoppingJourneyTest {
         offerCoke.setArticleOfferedName("Coke");
         offerCoke.setOfferType(OfferType.PRICE);
         offerCoke.setOfferValueAforB(2, 1d);
+
+        shoppingBagService.getOffersService().addOffer(offerBeans);
+        shoppingBagService.getOffersService().addOffer(offerCoke);
 
         final Article articleBeansA = new ArticleImpl("Beans", 0.50d);
         final Article articleBeansB = new ArticleImpl("Beans", 0.50d);
@@ -72,6 +76,8 @@ public class ShoppingJourneyTest {
         offerBeans.setOfferType(OfferType.UNITS);
         offerBeans.setOfferValueAforB(2, 2d);
 
+        shoppingBagService.getOffersService().addOffer(offerBeans);
+
         final Article articleBeansA = new ArticleImpl("Beans", 0.50d);
         final Article articleBeansB = new ArticleImpl("Beans", 0.50d);
         final Article articleBeansC = new ArticleImpl("Beans", 0.50d);
@@ -91,6 +97,8 @@ public class ShoppingJourneyTest {
         offerCoke.setArticleOfferedName("Coke");
         offerCoke.setOfferType(OfferType.PRICE);
         offerCoke.setOfferValueAforB(2, 1d);
+
+        shoppingBagService.getOffersService().addOffer(offerCoke);
 
         final Article articleCokeA = new ArticleImpl("Coke", 0.70d);
         final Article articleCokeB = new ArticleImpl("Coke", 0.70d);

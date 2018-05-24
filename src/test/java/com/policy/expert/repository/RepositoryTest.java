@@ -6,6 +6,8 @@ import com.policy.expert.repository.impl.ArticlesRepository;
 import com.policy.expert.repository.impl.OffersRepository;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RepositoryTest {
@@ -15,9 +17,9 @@ public class RepositoryTest {
     public void validateArticleRepositoryReturnsEmptyMapIfEmpty() {
         final Repository<Article> articleRepository = new ArticlesRepository();
 
-        final Article actual = articleRepository.getValueByKey("key");
+        final List<Article> actual = articleRepository.list();
 
-        assertThat(actual).isNotNull();
+        assertThat(actual).isEmpty();
     }
 
 
@@ -25,8 +27,8 @@ public class RepositoryTest {
     public void validateAOffereRepositoryReturnsEmptyMapIfEmpty() {
         final Repository<Offer> articleRepository = new OffersRepository();
 
-        final Offer actual = articleRepository.getValueByKey("key");
+        final List<Offer> actual = articleRepository.list();
 
-        assertThat(actual).isNotNull();
+        assertThat(actual).isEmpty();
     }
 }

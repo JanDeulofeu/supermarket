@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ShoppingBagService {
 
+    OffersService getOffersService();
+
     void addArticleToShoppingBag(Article article);
 
     void removeArticleFromShoppingBag(Article article);

@@ -2,6 +2,8 @@ package com.policy.expert.service;
 
 import com.policy.expert.model.Article;
 import com.policy.expert.model.Offer;
+import com.policy.expert.model.impl.ArticleImpl;
+import com.policy.expert.service.impl.ShoppingBagServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,20 +14,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ShoppingBagServiceTest {
 
 
-    private ShoppingBagService shoppingBagService;
+    private ShoppingBagService shoppingBagService = new ShoppingBagServiceImpl();
 
 
     @BeforeEach
-    public void init()
-    {
+    public void init() {
         shoppingBagService.clearBag();
     }
 
 
     @Test
     public void validateArticlesArePersistedInRepository() {
-        final Article articleBeans = null;
-        final Article articleCoke = null;
+        final Article articleBeans = new ArticleImpl();
+        final Article articleCoke = new ArticleImpl();
 
 
         shoppingBagService.addArticleToShoppingBag(articleBeans);
@@ -39,8 +40,8 @@ public class ShoppingBagServiceTest {
 
     @Test
     public void validateArticlesAreRemovedFromRepository() {
-        final Article articleBeans = null;
-        final Article articleCoke = null;
+        final Article articleBeans = new ArticleImpl();
+        final Article articleCoke = new ArticleImpl();
 
         shoppingBagService.addArticleToShoppingBag(articleBeans);
         shoppingBagService.addArticleToShoppingBag(articleCoke);
