@@ -4,6 +4,7 @@ import com.policy.expert.calculator.DiscountCalculator;
 import com.policy.expert.model.Article;
 import com.policy.expert.model.Offer;
 import com.policy.expert.types.OfferType;
+import com.policy.expert.util.NumberUtil;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -40,7 +41,7 @@ public class DiscountCalculatorImpl implements DiscountCalculator {
         discount = calculateDiscountByUnits(article, offers, discount, articlesPrices);
         discount = calculateDiscountByPrice(article, offers, discount, articlesPrices);
 
-        return roundDiscount(discount);
+        return NumberUtil.roundDiscount(discount);
     }
 
 
@@ -82,9 +83,5 @@ public class DiscountCalculatorImpl implements DiscountCalculator {
                 .filter(k -> k.getArticleOfferedName().equalsIgnoreCase(article))
                 .filter(k -> k.getOfferType() == offerType)
                 .findFirst();
-    }
-
-    private Double roundDiscount(final Double value) {
-        return new BigDecimal(value > 0 ? -value : value).setScale(2, BigDecimal.ROUND_UP).doubleValue();
     }
 }

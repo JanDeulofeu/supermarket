@@ -1,5 +1,6 @@
 package com.policy.expert.calculator;
 
+import com.policy.expert.calculator.impl.BillCalculatorImpl;
 import com.policy.expert.model.Article;
 import com.policy.expert.model.impl.ArticleImpl;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BillCalculatorTest {
 
-    private BillCalculator billCalculator;
+    private BillCalculator billCalculator = new BillCalculatorImpl();
 
 
     @Test

@@ -1,6 +1,8 @@
 package com.policy.expert.service.impl;
 
+import com.policy.expert.calculator.BillCalculator;
 import com.policy.expert.calculator.DiscountCalculator;
+import com.policy.expert.calculator.impl.BillCalculatorImpl;
 import com.policy.expert.calculator.impl.DiscountCalculatorImpl;
 import com.policy.expert.model.Article;
 import com.policy.expert.model.Offer;
@@ -13,9 +15,10 @@ import java.util.List;
 
 public class ShoppingBagServiceImpl implements ShoppingBagService {
 
-    private Repository<Article> repository = new ArticlesRepository();
-    private OffersService offersService = new OfferServiceImpl();
     private DiscountCalculator discountCalculator = new DiscountCalculatorImpl();
+    private Repository<Article> articleRepository = new ArticlesRepository();
+    private BillCalculator billCalculator = new BillCalculatorImpl();
+    private OffersService offersService = new OfferServiceImpl();
 
     @Override
     public OffersService getOffersService() {
@@ -24,22 +27,22 @@ public class ShoppingBagServiceImpl implements ShoppingBagService {
 
     @Override
     public void addArticleToShoppingBag(final Article article) {
-        repository.addValue(article);
+        articleRepository.addValue(article);
     }
 
     @Override
     public void removeArticleFromShoppingBag(final Article article) {
-        repository.remove(article);
+        articleRepository.remove(article);
     }
 
     @Override
     public List<Article> listArticlesOnShoppingBag() {
-        return repository.list();
+        return articleRepository.list();
     }
 
     @Override
     public void clearBag() {
-        repository.clear();
+        articleRepository.clear();
     }
 
     @Override
@@ -49,7 +52,7 @@ public class ShoppingBagServiceImpl implements ShoppingBagService {
 
     @Override
     public Double calculateDiscount() {
-        return discountCalculator.calculateDiscount(repository.list(), offersService.listOffers());
+        return discountCalculator.calculateDiscount(articleRepository.list(), offersService.listOffers());
     }
 
     @Override
@@ -59,6 +62,6 @@ public class ShoppingBagServiceImpl implements ShoppingBagService {
 
     @Override
     public Double calculateFinalBill() {
-        return null;
+        return billCalculator.calculateBill(articleRepository.list(), calculateDiscount());
     }
 }
