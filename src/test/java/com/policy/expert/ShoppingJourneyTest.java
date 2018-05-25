@@ -46,12 +46,11 @@ public class ShoppingJourneyTest {
         shoppingBagService.addArticleToShoppingBag(articleBeansB);
         shoppingBagService.addArticleToShoppingBag(articleBeansC);
         shoppingBagService.addArticleToShoppingBag(articleCokeA);
-        shoppingBagService.addArticleToShoppingBag(articleCokeA);
         shoppingBagService.addArticleToShoppingBag(articleCokeB);
         shoppingBagService.addArticleToShoppingBag(oranges);
 
         final List<Article> articles = shoppingBagService.listArticlesOnShoppingBag();
-        assertThat(articles).isIn(Arrays.asList(articleBeansA, articleBeansB, articleBeansC, articleCokeA, articleCokeB, oranges));
+        assertThat(articles).containsExactly(articleBeansA, articleBeansB, articleBeansC, articleCokeA, articleCokeB, oranges);
 
         final Double subTotalPrice = shoppingBagService.calculateSubTotal();
         assertThat(subTotalPrice).isEqualTo(3.30);
