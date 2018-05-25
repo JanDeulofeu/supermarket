@@ -1,5 +1,7 @@
 package com.policy.expert.service.impl;
 
+import com.policy.expert.calculator.DiscountCalculator;
+import com.policy.expert.calculator.impl.DiscountCalculatorImpl;
 import com.policy.expert.model.Article;
 import com.policy.expert.model.Offer;
 import com.policy.expert.repository.Repository;
@@ -13,7 +15,7 @@ public class ShoppingBagServiceImpl implements ShoppingBagService {
 
     private Repository<Article> repository = new ArticlesRepository();
     private OffersService offersService = new OfferServiceImpl();
-
+    private DiscountCalculator discountCalculator = new DiscountCalculatorImpl();
 
     @Override
     public OffersService getOffersService() {
@@ -47,7 +49,7 @@ public class ShoppingBagServiceImpl implements ShoppingBagService {
 
     @Override
     public Double calculateDiscount() {
-        return null;
+        return discountCalculator.calculateDiscount(repository.list(), offersService.listOffers());
     }
 
     @Override
