@@ -1,5 +1,6 @@
 package com.policy.expert.calculator;
 
+import com.policy.expert.calculator.impl.DiscountCalculatorImpl;
 import com.policy.expert.model.Article;
 import com.policy.expert.model.Offer;
 import com.policy.expert.model.impl.ArticleImpl;
@@ -13,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DiscountCalculatorTest {
 
-    private DiscountCalculator discountCalculator;
+    private DiscountCalculator discountCalculator = new DiscountCalculatorImpl();
 
 
     @Test
@@ -71,7 +72,7 @@ public class DiscountCalculatorTest {
         final Double discountBeans = discountCalculator.calculateDiscountByArticle("Beans", Arrays.asList(articleBeansA, articleBeansB, articleBeansC), Arrays.asList(offerBeans));
         assertThat(discountBeans).isEqualTo(-0.50);
 
-        final Double discountCokes = discountCalculator.calculateDiscountByArticle("Coke", Arrays.asList(articleBeansA, articleBeansB, articleBeansC), Arrays.asList(offerBeans));
+        final Double discountCokes = discountCalculator.calculateDiscountByArticle("Coke", Arrays.asList(articleCokeA, articleCokeB), Arrays.asList(offerCoke));
         assertThat(discountCokes).isEqualTo(-0.40);
 
         final Double actual = discountCalculator.calculateDiscount(Arrays.asList(articleCokeA, articleCokeB, articleBeansA, articleBeansB, articleBeansC), Arrays.asList(offerCoke, offerBeans));

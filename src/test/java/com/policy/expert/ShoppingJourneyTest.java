@@ -4,9 +4,7 @@ import com.policy.expert.model.Article;
 import com.policy.expert.model.Offer;
 import com.policy.expert.model.impl.ArticleImpl;
 import com.policy.expert.model.impl.OfferImpl;
-import com.policy.expert.service.OffersService;
 import com.policy.expert.service.ShoppingBagService;
-import com.policy.expert.service.impl.OfferServiceImpl;
 import com.policy.expert.service.impl.ShoppingBagServiceImpl;
 import com.policy.expert.types.ItemType;
 import com.policy.expert.types.OfferType;
@@ -58,7 +56,7 @@ public class ShoppingJourneyTest {
         final Double subTotalPrice = shoppingBagService.calculateSubTotal();
         assertThat(subTotalPrice).isEqualTo(3.30);
 
-        final List<Offer> offers = shoppingBagService.calculateOffers();
+        final List<Offer> offers = shoppingBagService.getOffers();
         assertThat(offers).isIn(Arrays.asList(offerBeans, offerCoke));
 
         final Double discount = shoppingBagService.calculateDiscount();

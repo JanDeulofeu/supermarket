@@ -51,7 +51,7 @@ public class ShoppingBagServiceImpl implements ShoppingBagService {
     }
 
     @Override
-    public List<Offer> calculateOffers() {
+    public List<Offer> getOffers() {
         return offersService.listOffers();
     }
 

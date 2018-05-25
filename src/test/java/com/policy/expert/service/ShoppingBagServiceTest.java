@@ -78,7 +78,7 @@ public class ShoppingBagServiceTest {
 
     @Test
     public void validateCalculateOffersReturnsEmptyCollectionIfEmpty() {
-        final List<Offer> actual = shoppingBagService.calculateOffers();
+        final List<Offer> actual = shoppingBagService.getOffers();
 
         assertThat(actual).isNotNull();
         assertThat(actual).isEmpty();

@@ -21,7 +21,7 @@ public interface ShoppingBagService {
 
     Double calculateDiscount();
 
-    List<Offer> calculateOffers();
+    List<Offer> getOffers();
 
     Double calculateFinalBill();
 }
