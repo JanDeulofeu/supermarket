@@ -7,4 +7,6 @@ import java.util.List;
 public interface BillCalculator {
 
     Double calculateBill(List<Article> articles, Double discount);
+
+    Double calculateSubTotal(List<Article> articles);
 }

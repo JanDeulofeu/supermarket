@@ -40,4 +40,21 @@ public class BillCalculatorTest {
         final Double actual = billCalculator.calculateBill(Arrays.asList(articleBeansA), -0d);
         assertThat(actual).isEqualTo(0.5d);
     }
+
+    @Test
+    public void validateCalculateSubTotalWithMultipleArticles()
+    {
+        final Article articleBeansA = new ArticleImpl("Beans", 0.50d);
+        final Article articleBeansB = new ArticleImpl("Beans", 0.50d);
+
+        final Double actual = billCalculator.calculateSubTotal(Arrays.asList(articleBeansA, articleBeansB));
+        assertThat(actual).isEqualTo(1.0d);
+    }
+
+    @Test
+    public void validateCalculateSubTotalWithMZeroArticles()
+    {
+        final Double actual = billCalculator.calculateSubTotal(null);
+        assertThat(actual).isEqualTo(0d);
+    }
 }
