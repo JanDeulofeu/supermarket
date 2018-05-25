@@ -47,7 +47,7 @@ public class ShoppingBagServiceImpl implements ShoppingBagService {
 
     @Override
     public Double calculateSubTotal() {
-        return null;
+        return billCalculator.calculateSubTotal(articleRepository.list());
     }
 
     @Override

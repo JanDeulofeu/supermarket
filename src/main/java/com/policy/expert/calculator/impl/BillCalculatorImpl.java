@@ -11,10 +11,20 @@ public class BillCalculatorImpl implements BillCalculator {
     @Override
     public Double calculateBill(final List<Article> articles, final Double discount) {
 
-        final Double sumPrices = articles.stream()
-                .map(k -> k.getPrice())
-                .reduce(0d, (x, y) -> x + y);
+        final Double sumPrices = sumArticlesPrices(articles);
 
-        return Math.abs(NumberUtil.roundDiscount(sumPrices - Math.abs(discount)));
+        return NumberUtil.roundNumber(sumPrices - Math.abs(discount));
+    }
+
+    @Override
+    public Double calculateSubTotal(final List<Article> articles) {
+
+        return articles != null && !articles.isEmpty() ? sumArticlesPrices(articles) : 0d;
+    }
+
+    private Double sumArticlesPrices(final List<Article> articles) {
+        return NumberUtil.roundNumber(articles.stream()
+                .map(k -> k.getPrice())
+                .reduce(0d, (x, y) -> x + y));
     }
 }

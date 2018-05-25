@@ -56,7 +56,7 @@ public class ShoppingJourneyTest {
         assertThat(subTotalPrice).isEqualTo(3.30);
 
         final List<Offer> offers = shoppingBagService.getOffers();
-        assertThat(offers).isIn(Arrays.asList(offerBeans, offerCoke));
+        assertThat(offers).containsExactly(offerBeans, offerCoke);
 
         final Double discount = shoppingBagService.calculateDiscount();
         assertThat(discount).isEqualTo(-0.90);

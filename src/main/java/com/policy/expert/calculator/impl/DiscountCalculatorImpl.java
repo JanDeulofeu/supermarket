@@ -6,7 +6,6 @@ import com.policy.expert.model.Offer;
 import com.policy.expert.types.OfferType;
 import com.policy.expert.util.NumberUtil;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,7 +40,7 @@ public class DiscountCalculatorImpl implements DiscountCalculator {
         discount = calculateDiscountByUnits(article, offers, discount, articlesPrices);
         discount = calculateDiscountByPrice(article, offers, discount, articlesPrices);
 
-        return NumberUtil.roundDiscount(discount);
+        return NumberUtil.roundDiscountAsDiscount(discount);
     }
 
 
