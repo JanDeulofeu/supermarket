@@ -1,6 +1,7 @@
 package com.policy.expert.calculator.impl;
 
 import com.policy.expert.calculator.DiscountCalculator;
+import com.policy.expert.exceptions.ParamException;
 import com.policy.expert.model.Article;
 import com.policy.expert.model.Offer;
 import com.policy.expert.types.OfferType;
@@ -16,10 +17,14 @@ public class DiscountCalculatorImpl implements DiscountCalculator {
     @Override
     public Double calculateDiscount(final List<Article> articles, final List<Offer> offers) {
 
-        return articles.stream()
-                .distinct()
-                .map(k -> calculateDiscountByArticle(k.getArticleName(), articles, offers))
-                .reduce(0d, (x, y) -> x + y);
+        try {
+            return articles.stream()
+                    .distinct()
+                    .map(k -> calculateDiscountByArticle(k.getArticleName(), articles, offers))
+                    .reduce(0d, (x, y) -> x + y);
+        } catch (final NullPointerException e) {
+            throw new ParamException("Invalid input parameter", e);
+        }
     }
 
     @Override
@@ -27,26 +32,30 @@ public class DiscountCalculatorImpl implements DiscountCalculator {
 
         Double discount = 0d;
 
-        final List<Double> articlesPrices = articles.stream()
-                .filter(k -> k.getArticleName().equalsIgnoreCase(article))
-                .map(k -> k.getPrice())
-                .collect(Collectors.toList());
+        try {
+            final List<Double> articlesPrices = articles.stream()
+                    .filter(k -> k.getArticleName().equalsIgnoreCase(article))
+                    .map(k -> k.getPrice())
+                    .collect(Collectors.toList());
 
 
-        if (articlesPrices.isEmpty()) {
-            return 0d;
+            if (articlesPrices.isEmpty()) {
+                return 0d;
+            }
+
+            discount = calculateDiscountByUnits(article, offers, discount, articlesPrices);
+            discount = calculateDiscountByPrice(article, offers, discount, articlesPrices);
+
+            return NumberUtil.roundNumberAsNegative(discount);
+        } catch (final NullPointerException e) {
+            throw new ParamException("Invalid input parameter", e);
         }
-
-        discount = calculateDiscountByUnits(article, offers, discount, articlesPrices);
-        discount = calculateDiscountByPrice(article, offers, discount, articlesPrices);
-
-        return NumberUtil.roundDiscountAsDiscount(discount);
     }
 
 
     private Double calculateDiscountByUnits(final String article, final List<Offer> offers, Double discount, final List<Double> articlesPrices) {
 
-        final Optional<Offer> offerUnitsOptional =  filterOffersByTypeAndArticleName(OfferType.UNITS, article, offers);
+        final Optional<Offer> offerUnitsOptional = filterOffersByTypeAndArticleName(OfferType.UNITS, article, offers);
 
         if (offerUnitsOptional.isPresent()) {
 
@@ -77,7 +86,7 @@ public class DiscountCalculatorImpl implements DiscountCalculator {
         return discount;
     }
 
-    private Optional<Offer> filterOffersByTypeAndArticleName(final OfferType offerType, final String article, final List<Offer> offers){
+    private Optional<Offer> filterOffersByTypeAndArticleName(final OfferType offerType, final String article, final List<Offer> offers) {
         return offers.stream()
                 .filter(k -> k.getArticleOfferedName().equalsIgnoreCase(article))
                 .filter(k -> k.getOfferType() == offerType)

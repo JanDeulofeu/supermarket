@@ -1,6 +1,7 @@
 package com.policy.expert.calculator;
 
 import com.policy.expert.calculator.impl.DiscountCalculatorImpl;
+import com.policy.expert.exceptions.ParamException;
 import com.policy.expert.model.Article;
 import com.policy.expert.model.Offer;
 import com.policy.expert.model.impl.ArticleImpl;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class DiscountCalculatorTest {
 
@@ -78,5 +80,19 @@ public class DiscountCalculatorTest {
         final Double actual = discountCalculator.calculateDiscount(Arrays.asList(articleCokeA, articleCokeB, articleBeansA, articleBeansB, articleBeansC), Arrays.asList(offerCoke, offerBeans));
         assertThat(actual).isEqualTo(-0.90);
 
+    }
+
+    @Test
+    public void validateCalculateDiscountByArticleExceptionIsthrownOnNullList() {
+        assertThatThrownBy( () -> discountCalculator.calculateDiscountByArticle("Beans", null, null))
+                .isInstanceOf(ParamException.class)
+                .hasMessage("Invalid input parameter");
+    }
+
+    @Test
+    public void validateCalculateDiscountExceptionIsthrownOnNullList() {
+        assertThatThrownBy( () -> discountCalculator.calculateDiscount(null, null))
+                .isInstanceOf(ParamException.class)
+                .hasMessage("Invalid input parameter");
     }
 }

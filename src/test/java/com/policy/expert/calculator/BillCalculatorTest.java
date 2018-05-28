@@ -1,6 +1,7 @@
 package com.policy.expert.calculator;
 
 import com.policy.expert.calculator.impl.BillCalculatorImpl;
+import com.policy.expert.exceptions.ParamException;
 import com.policy.expert.model.Article;
 import com.policy.expert.model.impl.ArticleImpl;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class BillCalculatorTest {
 
@@ -42,8 +44,7 @@ public class BillCalculatorTest {
     }
 
     @Test
-    public void validateCalculateSubTotalWithMultipleArticles()
-    {
+    public void validateCalculateSubTotalWithMultipleArticles() {
         final Article articleBeansA = new ArticleImpl("Beans", 0.50d);
         final Article articleBeansB = new ArticleImpl("Beans", 0.50d);
 
@@ -52,9 +53,17 @@ public class BillCalculatorTest {
     }
 
     @Test
-    public void validateCalculateSubTotalWithMZeroArticles()
-    {
+    public void validateCalculateSubTotalWithMZeroArticles() {
         final Double actual = billCalculator.calculateSubTotal(null);
         assertThat(actual).isEqualTo(0d);
     }
+
+
+    @Test
+    public void validateCalculateBillExceptionIsthrownOnNullList() {
+        assertThatThrownBy( () -> billCalculator.calculateBill(null, -1d))
+        .isInstanceOf(ParamException.class)
+        .hasMessage("Invalid input parameter");
+    }
+
 }
